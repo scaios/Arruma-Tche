@@ -1,0 +1,132 @@
+/* Fonte e Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #f7f9fa;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* ===== PADRONIZAÇÃO DE TÍTULOS E TEXTOS ===== */
+.complaint-form h2 {
+  font-size: 1.6rem;
+  color: #004d73;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 0.3px;
+}
+.complaint-form h3 {
+  font-size: 1.2rem;
+  color: #004d73;
+  font-weight: 600;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+.complaint-form label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 20px;
+  display: block;
+}
+.complaint-form p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.upload-area p strong {
+  font-size: 1rem;
+  color: #333;
+}
+.complaint-form input[type="text"],
+.complaint-form input[type="email"],
+.complaint-form input[type="tel"],
+.complaint-form textarea,
+.complaint-form select { /* Adicionado select para padronização */
+  font-size: 0.95rem;
+  color: #333;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Header, Nav, Hero (sem alterações) */
+.header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
+.brasao-area { display: flex; align-items: center; gap: 10px; }
+.brasao { width: 45px; height: 45px; object-fit: contain; }
+.brand-name { font-size: 1.5rem; font-weight: 700; color: #004d73; }
+.nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: 500; transition: color 0.2s ease; }
+.nav a:hover { color: #0078d4; }
+.hero { background: linear-gradient(to right, #003c7a, #005fa3); color: white; text-align: center; padding: 60px 30px; }
+.hero-content h1 { font-size: 2rem; margin-bottom: 10px; }
+
+/* Formulário */
+.form-container { max-width: 1100px; background: #fff; margin: 40px auto; padding: 36px 40px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.complaint-form .form-group { margin-bottom: 15px; } /* Ajuda a espaçar os elementos */
+.upload-box { border: 2px dashed #ccc; padding: 26px; border-radius: 10px; text-align: center; background: #fafafa; margin-top: 10px; }
+.location-input { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+.location-input input { flex: 1; min-width: 0; }
+.contact-info { display: flex; gap: 12px; margin-top: 12px; align-items: center; }
+.contact-info input { flex: 1 1 0; min-width: 220px; padding: 12px; }
+.btn-primary { background: #0d6efd; border: none; color: white; padding: 14px 26px; border-radius: 30px; cursor: pointer; font-weight: 600; margin: 26px auto 6px; display: block; transition: background .18s, transform .08s; }
+.btn-primary:hover { background: #0d6efd; transform: translateY(-1px); }
+
+/* --- INÍCIO DA ADIÇÃO --- */
+/* Estilo para o botão secundário de mostrar o mapa */
+.btn-secondary {
+    background-color: #0d6efd; /* Cinza */
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    width: 100%; /* Opcional: faz o botão ocupar toda a largura */
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+/* --- FIM DA ADIÇÃO --- */
+
+
+/* Footer (sem alterações) */
+.footer { background: #004d73; color: white; display: flex; justify-content: space-around; padding: 40px; flex-wrap: wrap; }
+.footer-section h4 { margin-bottom: 10px; }
+.footer-section ul { list-style: none; }
+.footer-section ul li a { color: white; text-decoration: none; }
+.footer-section ul li a:hover { text-decoration: underline; }
+.socials a { color: white; margin-right: 10px; font-size: 1.2rem; }
+.footer-bottom { background: #003954; color: white; text-align: center; padding: 15px; font-size: 0.9rem; }
+
+/* Responsividade e Menu de Autenticação (sem alterações) */
+@media (max-width: 1100px) { .form-container { max-width: 95%; padding: 28px; } }
+@media (max-width: 900px) { .form-container { padding: 20px; margin: 20px; } .location-input, .contact-info { flex-direction: column; align-items: stretch; } .contact-info input { width: 100%; min-width: 0; } .hero { padding: 32px 16px; } }
+.nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.auth-links { display: flex; align-items: center; gap: 10px; }
+.auth-links a { color: #333; text-decoration: none; padding: 8px 16px; border-radius: 6px; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; border: 1px solid #ccc; }
+.auth-links a:hover { background-color: rgba(255, 255, 255, 0.1); }
+.auth-links a[href$="register"] { background-color: #0d6efd; border-color: #0d6efd; color: #fff;}
+.auth-links a[href$="register"]:hover { background-color: #0b5ed7; }
+.auth-links form { margin: 0; }
+#map { height: 400px; width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid #ccc; }

@@ -1,0 +1,158 @@
+/* Fonte e Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    background: #f7f9fa;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+  }
+  
+  .brasao-area { display: flex; align-items: center; gap: 10px; }
+  .brasao { width: 45px; height: 45px; object-fit: contain; }
+  .brand-name { font-size: 1.5rem; font-weight: 700; color: #004d73; }
+  .nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: 500; transition: color 0.2s ease; }
+  .nav a:hover { color: #0078d4; }
+  
+  /* Hero */
+  .hero {
+    background: linear-gradient(to right, #003c7a, #005fa3);
+    color: white;
+    text-align: center;
+    padding: 50px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    gap: 25px;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+  
+.btn-primary {
+    background: #219752;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+  
+  .btn-primary:hover {
+    background: #1d8347;
+  }
+  
+  /* Dashboard */
+  .dashboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 50px 40px;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 280px;
+  }
+  
+  .big-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #219752;
+  }
+  
+  .orange {
+    color: #f39c12;
+  }
+  
+  /* Reclamações */
+  .claims { flex: 1; }
+  .claims h2 { margin-bottom: 15px; }
+  .claim-list { display: flex; flex-direction: column; gap: 20px; }
+  .claim { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  
+  .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: white;
+    margin-top: 10px;
+  }
+  
+/* ============================================= */
+/* A ÚNICA ALTERAÇÃO ESTÁ NESTE BLOCO ABAIXO */
+/* ============================================= */
+.status.aberto { background-color: #e74c3c; } /* Vermelho */
+.status.em-análise { background-color: #f1c40f; color: #333; } /* Amarelo (com texto escuro) */
+.status.resolvido { background-color: #219752; } /* Verde */
+/* As classes antigas foram removidas para evitar confusão */
+  
+  /* Footer */
+  .footer { background: #004d73; color: white; display: flex; justify-content: space-around; padding: 40px; flex-wrap: wrap; }
+  .footer-section h4 { margin-bottom: 10px; }
+  .footer-section ul { list-style: none; }
+  .footer-section ul li a { color: white; text-decoration: none; }
+  .footer-section ul li a:hover { text-decoration: underline; }
+  .socials a { color: white; margin-right: 10px; font-size: 1.2rem; }
+  .footer-bottom { background: #003954; color: white; text-align: center; padding: 15px; font-size: 0.9rem; }
+
+/* Menu de Autenticação */
+.nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.auth-links { display: flex; align-items: center; gap: 10px; }
+.auth-links a { color: #333; text-decoration: none; padding: 8px 16px; border-radius: 6px; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; border: 1px solid #ccc; }
+.auth-links a:hover { background-color: rgba(255, 255, 255, 0.1); }
+.auth-links a[href$="register"] { background-color: #0d6efd; border-color: #0d6efd; color: #fff; }
+.auth-links a[href$="register"]:hover { background-color: #0b5ed7; }
+.auth-links form { margin: 0; }
+
+  /* Responsividade */
+  @media (max-width: 900px) {
+    .dashboard { flex-direction: column; align-items: center; }
+    .cards { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+    .card { width: 45%; }
+    .hero { padding: 40px 20px; }
+    .footer { flex-direction: column; text-align: center; }
+    .brand-name { font-size: 1.2rem; }
+  }

@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f7f9fb;
+  color: #333;
+}
+
+/* HEADER */
+.header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+  }
+  
+  /* 🔹 Brasao e Nome da Marca */
+  .brasao-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .brasao {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+  }
+  
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #004d73;
+  }
+
+.nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .nav a:hover {
+    color: #0078d4;
+  }
+
+.hero {
+  background: linear-gradient(to right, #003c7a, #005fa3);
+  color: white;
+  text-align: center;
+  padding: 60px 30px;
+}
+
+.hero-content h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* MAIN CONTENT */
+.sobre-main {
+  max-width: 1000px;
+  margin: 50px auto;
+  background: white;
+  padding: 50px 70px;
+  border-radius: 16px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro h1 {
+  color: #004c80;
+  font-size: 1.8rem;
+}
+
+.intro p {
+  color: #555;
+}
+
+/* COMO USAR */
+.como-usar h2,
+.dicas h2,
+.prazos h2 {
+  color: #004c80;
+  border-left: 4px solid #004c80;
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.step {
+  flex: 1 1 180px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.step img {
+  width: 55px;
+  height: 55px;
+  margin-bottom: 10px;
+}
+
+.step h3 {
+  color: #004c80;
+  margin-bottom: 8px;
+}
+
+/* DICAS */
+.dicas-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dica {
+  flex: 1 1 300px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* PRAZOS */
+.prazos ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prazos li {
+  background: #f8fafc;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+}
+
+/* FOOTER */
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #004c80;
+  color: white;
+  padding: 40px 20px;
+  margin-top: 50px;
+}
+
+.footer-section h4 {
+  margin-bottom: 10px;
+  color: #ffcc33;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.socials a {
+  font-size: 1.4rem;
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  background: #003b66;
+  color: #eee;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+/* ============================================= */
+/* ESTILOS PARA O MENU DE AUTENTICAÇÃO (LOGIN/REGISTRO) */
+/* ============================================= */
+
+/* 1. Transforma a barra de navegação em um container flexível */
+/* Isso permite alinhar os itens facilmente */
+.nav {
+    display: flex;
+    justify-content: space-between; /* Empurra os filhos para as extremidades */
+    align-items: center;            /* Alinha tudo verticalmente no centro */
+    width: 100%;                    /* Garante que a nav ocupe todo o espaço */
+}
+
+/* 2. O container para os links de autenticação */
+.auth-links {
+    display: flex;
+    align-items: center; /* Alinha os links verticalmente */
+    gap: 10px;           /* Adiciona um pequeno espaço entre os links */
+}
+
+/* 3. Estilo padrão para os links de autenticação */
+.auth-links a {
+    color: #333; /* Cor do texto para ser visível no header branco */
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border: 1px solid #ccc; /* Borda cinza claro para ser visível */
+}
+
+/* 4. Efeito hover para os links */
+.auth-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 5. Estilo especial para o botão "Registrar", para se destacar */
+.auth-links a[href$="register"] { /* Este seletor pega o link que termina com 'register' */
+    background-color: #0d6efd; /* Um azul chamativo */
+    border-color: #0d6efd;
+}
+
+.auth-links a[href$="register"]:hover {
+    background-color: #0b5ed7; /* Um azul um pouco mais escuro no hover */
+}
+
+/* 6. Ajuste para o formulário do botão "Sair" não quebrar o layout */
+.auth-links form {
+    margin: 0; /* Remove a margem padrão do formulário */
+}

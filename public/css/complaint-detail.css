@@ -1,0 +1,85 @@
+/* Importando estilos base para o header e fontes */
+@import url('my-complaints.css');
+
+body {
+    background-color: #f7f9fa;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #0078d4;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.complaint-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.complaint-gallery img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.complaint-info h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.complaint-info .status {
+    font-size: 0.9rem;
+    padding: 6px 14px;
+}
+
+.complaint-info .meta {
+    margin-bottom: 25px;
+    border-left: 3px solid #0078d4;
+    padding-left: 15px;
+}
+
+.complaint-info .meta p {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.complaint-info .description h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.complaint-info .description p {
+    color: #444;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserva as quebras de linha e espaços */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 800px) {
+    .complaint-detail {
+        grid-template-columns: 1fr; /* Coluna única */
+    }
+}
