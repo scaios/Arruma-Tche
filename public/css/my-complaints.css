@@ -140,8 +140,6 @@ body {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-/* --- INÍCIO DA ADIÇÃO 1 --- */
-/* Efeito de hover e cursor para os cards clicáveis */
 .complaint.clickable {
     cursor: pointer;
 }
@@ -150,7 +148,6 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
-/* --- FIM DA ADIÇÃO 1 --- */
 
 .meta {
     color: #666;
@@ -205,7 +202,6 @@ body {
 .auth-links a[href$="register"]:hover { background-color: #1b7e45; }
 .auth-links form { margin: 0; }
 
-/* --- INÍCIO DA ADIÇÃO 2 --- */
 /* ============================================= */
 /* ESTILOS DO MODAL DE DETALHES DO USUÁRIO       */
 /* ============================================= */
@@ -246,7 +242,6 @@ body {
 
 .btn-save { background-color: #219752; color: white; }
 .btn-secondary { background-color: #6c757d; color: white; }
-/* --- FIM DA ADIÇÃO 2 --- */
 
 /* ============================================= */
 /* ESTILOS PARA O FORMULÁRIO DE EDIÇÃO NO MODAL  */
@@ -269,4 +264,50 @@ body {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
+}
+
+/* --- NOVOS ESTILOS PARA PAGINAÇÃO DINÂMICA --- */
+
+/* Faz a 'nav' que o Laravel cria se comportar como sua 'div.pagination' */
+.pagination nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estiliza os links (<a>) e spans (texto "...") para parecerem botões */
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    background: #fff;
+    border: none;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Estiliza o link da página ATIVA (o 'span' dentro do 'span[aria-current]') */
+.pagination [aria-current="page"] span {
+    background: #0078d4; /* Um azul que combina com seu site */
+    color: white;
+    font-weight: 600;
+}
+
+/* Estiliza links desabilitados (Ex: "Anterior" na página 1) */
+.pagination [aria-disabled="true"] span,
+.pagination [aria-disabled="true"] {
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Efeito hover para os links que não estão ativos */
+.pagination a:hover {
+    background: #e9ecef;
 }

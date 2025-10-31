@@ -67,21 +67,28 @@
         <div class="claims">
             <h2>Últimas Reclamações</h2>
             <div class="claim-list">
-                @foreach ($complaints as $complaint)
+                
+                @forelse ($complaints as $complaint)
                     <div class="claim">
                         <h3>{{ $complaint->category }}</h3>
                         <p><strong>{{ $complaint->title }}</strong></p>
                         <p class="bairro">📍 Bairro {{ $complaint->neighborhood }}</p>
                         <p>{{ Str::limit($complaint->description, 100) }}</p>
                         
-                        {{-- ============================================= --}}
-                        {{-- A ÚNICA ALTERAÇÃO ESTÁ NESTA LINHA ABAIXO --}}
-                        {{-- ============================================= --}}
                         <span class="status {{ strtolower(str_replace(' ', '-', $complaint->status)) }}">{{ $complaint->status }}</span>
                         
                         <p class="date">{{ $complaint->created_at->format('d/m/Y') }}</p>
                     </div>
-                @endforeach
+                @empty
+                    <div class="claim">
+                        <p>Nenhuma reclamação encontrada.</p>
+                    </div>
+                @endforelse
+            </div>
+
+            <div class="pagination">
+                {{-- CORREÇÃO AQUI: O caminho correto usa 'pagination::' --}}
+                {{ $complaints->links('pagination::simple-bootstrap-4') }}
             </div>
         </div>
     </section>

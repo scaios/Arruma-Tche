@@ -12,7 +12,6 @@ class DashboardController extends Controller
 {
     /**
      * Exibe o painel principal de administração.
-     * Este método busca todas as reclamações e as envia para a view.
      */
     public function index()
     {
@@ -28,13 +27,15 @@ class DashboardController extends Controller
      */
     public function updateStatus(Request $request, Complaint $complaint)
     {
-        // 1. Valida os dados recebidos.
+        // 1. Valida os dados recebidos (status E o novo comentário)
         $request->validate([
             'status' => 'required|in:Aberto,Em Análise,Resolvido',
+            'admin_comment' => 'nullable|string|max:2000' // Adicionado
         ]);
 
-        // 2. Atualiza o campo 'status'
+        // 2. Atualiza o status e o novo comentário
         $complaint->status = $request->status;
+        $complaint->admin_comment = $request->admin_comment; // Adicionado
         $complaint->save(); // 3. Salva a alteração
 
         // --- INÍCIO DA ADIÇÃO DO E-MAIL ---

@@ -79,7 +79,6 @@
 
         <div class="complaints">
             @forelse ($complaints as $complaint)
-                {{-- O card agora é clicável e tem o ID da reclamação --}}
                 <div class="complaint clickable" data-id="{{ $complaint->id }}">
                     <div>
                         <h3>{{ $complaint->title }}</h3>
@@ -91,7 +90,6 @@
                         <span class="status status-{{ strtolower(str_replace(' ', '-', $complaint->status)) }}">
                             {{ $complaint->status }}
                         </span>
-                        {{-- O botão "Ver Detalhes" foi removido daqui --}}
                     </div>
                 </div>
                 @empty
@@ -103,11 +101,9 @@
         </div>
 
         <div class="pagination">
-            <button>&lt;</button>
-            <button class="active">1</button>
-            <button>&gt;</button>
+            {{ $complaints->links() }}
         </div>
-    </main>
+        </main>
 
     <footer class="footer">
         <div class="footer-section">
@@ -164,59 +160,57 @@
         </div>
 
         {{-- ÁREA DE EDIÇÃO (começa escondida) --}}
-{{-- ÁREA DE EDIÇÃO (começa escondida) --}}
-            <div id="edit-mode" class="hidden">
-                <form id="edit-form" method="POST" action="">
-                    @csrf
-                    @method('PATCH')
+        <div id="edit-mode" class="hidden">
+            <form id="edit-form" method="POST" action="">
+                @csrf
+                @method('PATCH')
 
-                    <h2>Editando Reclamação</h2>
+                <h2>Editando Reclamação</h2>
 
-                    <div class="form-group">
-                        <label for="edit-title">Título da reclamação</label>
-                        <input type="text" id="edit-title" name="title" required>
-                    </div>
+                <div class="form-group">
+                    <label for="edit-title">Título da reclamação</label>
+                    <input type="text" id="edit-title" name="title" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="edit-category">Categoria</label>
-                        <select id="edit-category" name="category" required>
-                            <option value="Buraco na via">Buraco na via</option>
-                            <option value="Iluminação">Iluminação</option>
-                            <option value="Vazamento">Vazamento</option>
-                            <option value="Lixo e Entulho">Lixo e Entulho</option>
-                            <option value="Áreas Verdes">Áreas Verdes (Praças, Parques)</option>
-                            <option value="Trânsito">Trânsito (Sinalização, Semáforos)</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="edit-description">Descrição detalhada</label>
-                        <textarea id="edit-description" name="description" rows="5" required></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="edit-category">Categoria</label>
+                    <select id="edit-category" name="category" required>
+                        <option value="Buraco na via">Buraco na via</option>
+                        <option value="Iluminação">Iluminação</option>
+                        <option value="Vazamento">Vazamento</option>
+                        <option value="Lixo e Entulho">Lixo e Entulho</option>
+                        <option value="Áreas Verdes">Áreas Verdes (Praças, Parques)</option>
+                        <option value="Trânsito">Trânsito (Sinalização, Semáforos)</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-description">Descrição detalhada</label>
+                    <textarea id="edit-description" name="description" rows="5" required></textarea>
+                </div>
 
-                    <div class="form-group">
-                        <label for="edit-neighborhood">Bairro</label>
-                        <input type="text" id="edit-neighborhood" name="neighborhood" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="edit-address">Endereço</label>
-                        <input type="text" id="edit-address" name="address" required>
-                    </div>
+                <div class="form-group">
+                    <label for="edit-neighborhood">Bairro</label>
+                    <input type="text" id="edit-neighborhood" name="neighborhood" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-address">Endereço</label>
+                    <input type="text" id="edit-address" name="address" required>
+                </div>
 
-                    <div class="modal-actions">
-                        <button type="submit" class="btn-save">Salvar Alterações</button>
-                        <button type="button" id="cancelEditBtn" class="btn-secondary">Cancelar</button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-save">Salvar Alterações</button>
+                    <button type="button" id="cancelEditBtn" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
 
     </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // --- Selecionando os Elementos ---
     const modal = document.getElementById('userComplaintModal');
     const closeModalBtn = document.getElementById('closeUserModalBtn');
     const complaintCards = document.querySelectorAll('.complaint.clickable');
@@ -227,18 +221,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById('editBtn');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     const editForm = document.getElementById('edit-form');
-    const deleteBtn = document.getElementById('deleteBtn'); // Botão de Excluir
+    const deleteBtn = document.getElementById('deleteBtn');
 
-    let currentComplaintId = null; // Guarda o ID da reclamação aberta
+    let currentComplaintId = null; 
 
-    // --- Funções ---
     const closeModal = () => {
         modal.classList.add('hidden');
         viewMode.classList.remove('hidden');
         editMode.classList.add('hidden');
     };
 
-    // --- Eventos de Abertura do Modal ---
     complaintCards.forEach(card => {
         card.addEventListener('click', function () {
             currentComplaintId = this.dataset.id;
@@ -247,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    // Preenche o modo de VISUALIZAÇÃO
                     document.getElementById('modal-title').textContent = data.title;
                     document.getElementById('modal-protocol').textContent = `#${data.id}`;
                     document.getElementById('modal-category').textContent = data.category;
@@ -268,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         photoElement.classList.add('hidden');
                     }
 
-                    // Regra de negócio: só permite editar ou excluir se o status for "Aberto"
                     if (data.status === 'Aberto') {
                         editBtn.style.display = 'inline-block';
                         deleteBtn.style.display = 'inline-block';
@@ -277,7 +267,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         deleteBtn.style.display = 'none';
                     }
 
-                    // Preenche o formulário de EDIÇÃO
                     document.getElementById('edit-title').value = data.title;
                     document.getElementById('edit-category').value = data.category;
                     document.getElementById('edit-description').value = data.description;
@@ -289,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Eventos dos Botões do Modal ---
     editBtn.addEventListener('click', () => {
         editForm.action = `/reclamacoes/${currentComplaintId}`;
         viewMode.classList.add('hidden');
@@ -301,14 +289,11 @@ document.addEventListener('DOMContentLoaded', function () {
         viewMode.classList.remove('hidden');
     });
 
-    // --- INÍCIO DA NOVA LÓGICA DE EXCLUSÃO ---
     deleteBtn.addEventListener('click', () => {
-        // 1. Janela de confirmação
         if (confirm('Tem certeza de que deseja excluir esta reclamação? Esta ação não pode ser desfeita.')) {
             const url = `/reclamacoes/${currentComplaintId}`;
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            // 2. Faz a requisição para o servidor
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -319,15 +304,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 3. Se deu certo, remove o card da tela
                     const cardToRemove = document.querySelector(`.complaint[data-id="${currentComplaintId}"]`);
                     if (cardToRemove) {
                         cardToRemove.remove();
                     }
-                    closeModal(); // Fecha o modal
-                    alert(data.success); // Mostra a mensagem de sucesso
+                    closeModal(); 
+                    alert(data.success);
                 } else {
-                    // Mostra a mensagem de erro (ex: não pode excluir reclamação "Em Análise")
                     alert(data.error);
                 }
             })
@@ -337,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-    // --- FIM DA NOVA LÓGICA DE EXCLUSÃO ---
 
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (event) => {

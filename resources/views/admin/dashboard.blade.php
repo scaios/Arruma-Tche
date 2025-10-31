@@ -35,7 +35,8 @@
                     <th>Título</th>
                     <th>Categoria</th>
                     <th>Bairro</th>
-                    <th>Usuário</th> <th>Data</th>
+                    <th>Usuário</th>
+                    <th>Data</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
@@ -47,9 +48,7 @@
                         <td>{{ Str::limit($complaint->title, 40) }}</td>
                         <td>{{ $complaint->category }}</td>
                         <td>{{ $complaint->neighborhood }}</td>
-                        
                         <td>{{ $complaint->user?->name ?? 'N/A' }}</td>
-                        
                         <td>{{ $complaint->created_at->format('d/m/Y') }}</td>
                         <td><span class="status status-{{ strtolower(str_replace(' ', '-', $complaint->status)) }}">{{ $complaint->status }}</span></td>
                         <td>
@@ -61,6 +60,13 @@
                                     <option value="Em Análise" {{ $complaint->status == 'Em Análise' ? 'selected' : '' }}>Em Análise</option>
                                     <option value="Resolvido" {{ $complaint->status == 'Resolvido' ? 'selected' : '' }}>Resolvido</option>
                                 </select>
+
+                                <textarea 
+                                    name="admin_comment" 
+                                    rows="3" 
+                                    placeholder="Adicionar comentário público..." 
+                                    style="width: 100%; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc; padding: 5px; font-family: 'Inter', sans-serif;"
+                                >{{ $complaint->admin_comment }}</textarea>
                                 <button type="submit" class="btn-save">Salvar</button>
                             </form>
                         </td>
@@ -80,16 +86,19 @@
                 <img id="modal-photo" src="" alt="Foto da Reclamação" class="hidden">
                 <div class="modal-meta">
                     <p><strong>Codigo:</strong> <span id="modal-protocol"></span></p>
-                    
                     <p><strong>Usuário:</strong> <span id="modal-user-email"></span></p>
-
                     <p><strong>Categoria:</strong> <span id="modal-category"></span></p>
                     <p><strong>Bairro:</strong> <span id="modal-neighborhood"></span></p>
                     <p><strong>Endereço:</strong> <span id="modal-address"></span></p>
                 </div>
                 <h3>Descrição</h3>
                 <p id="modal-description"></p>
-            </div>
+
+                <div id="modal-admin-comment-section" class="hidden" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <h3>Comentário do Administrador</h3>
+                    <p id="modal-admin-comment" style="white-space: pre-wrap; background: #f8f9fa; padding: 10px; border-radius: 5px;"></p>
+                </div>
+                </div>
         </div>
     </div>
 
@@ -111,10 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     document.getElementById('modal-title').textContent = data.title;
                     document.getElementById('modal-protocol').textContent = `#${data.id}`;
-                    
-                    // OBJETIVO B: Preenchendo o email do usuário no modal
                     document.getElementById('modal-user-email').textContent = data.user ? data.user.email : 'N/A';
-                    
                     document.getElementById('modal-category').textContent = data.category;
                     document.getElementById('modal-neighborhood').textContent = data.neighborhood;
                     document.getElementById('modal-address').textContent = data.address;
@@ -127,6 +133,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else {
                         photoElement.classList.add('hidden');
                     }
+
+                    // --- LÓGICA DO COMENTÁRIO DO ADMIN ADICIONADA ---
+                    const commentSection = document.getElementById('modal-admin-comment-section');
+                    const commentText = document.getElementById('modal-admin-comment');
+
+                    if (data.admin_comment) {
+                        commentText.textContent = data.admin_comment;
+                        commentSection.classList.remove('hidden');
+                    } else {
+                        commentSection.classList.add('hidden');
+                    }
+                    // --- FIM DA LÓGICA DO COMENTÁRIO ---
+
                     modal.classList.remove('hidden');
                 })
                 .catch(error => console.error('Erro ao buscar detalhes:', error));

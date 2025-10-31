@@ -121,13 +121,9 @@
     margin-top: 10px;
   }
   
-/* ============================================= */
-/* A ÚNICA ALTERAÇÃO ESTÁ NESTE BLOCO ABAIXO */
-/* ============================================= */
 .status.aberto { background-color: #e74c3c; } /* Vermelho */
 .status.em-análise { background-color: #f1c40f; color: #333; } /* Amarelo (com texto escuro) */
 .status.resolvido { background-color: #219752; } /* Verde */
-/* As classes antigas foram removidas para evitar confusão */
   
   /* Footer */
   .footer { background: #004d73; color: white; display: flex; justify-content: space-around; padding: 40px; flex-wrap: wrap; }
@@ -156,3 +152,51 @@
     .footer { flex-direction: column; text-align: center; }
     .brand-name { font-size: 1.2rem; }
   }
+
+/* --- ESTILOS DE PAGINAÇÃO CORRIGIDOS --- */
+
+/* Alinha a 'ul' que o Laravel cria */
+.pagination .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-left: 0;
+    list-style: none;
+}
+
+/* Estiliza o link (<a>) ou o span (<span>) dentro do <li> */
+.pagination .page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    background: #fff;
+    border: none;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    min-width: 35px;
+    text-align: center;
+}
+
+/* Estiliza o link da página ATIVA */
+.pagination .page-item.active .page-link {
+    background: #0078d4;
+    color: white;
+    font-weight: 600;
+}
+
+/* Estiliza links desabilitados (Ex: "Anterior" na página 1) */
+.pagination .page-item.disabled .page-link {
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Efeito hover para os links que não estão ativos */
+.pagination .page-item:not(.active) .page-link:hover {
+    background: #e9ecef;
+}

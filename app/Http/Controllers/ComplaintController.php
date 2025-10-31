@@ -14,12 +14,14 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = \App\Models\Complaint::latest()->take(10)->get();
+        // Esta linha está 100% correta e gera um objeto de paginação
+        $complaints = \App\Models\Complaint::latest()->paginate(15);
+
         $resolvedCount = \App\Models\Complaint::where('status', 'Resolvido')->count();
         $openCount = \App\Models\Complaint::where('status', '!=', 'Resolvido')->count();
 
         return view('home', [
-            'complaints' => $complaints,
+            'complaints' => $complaints, // Envia o objeto de paginação
             'resolvedCount' => $resolvedCount,
             'openCount' => $openCount,
         ]);
@@ -52,8 +54,6 @@ class ComplaintController extends Controller
 
         // 2. Lógica para salvar a foto (se ela existir)
         if ($request->hasFile('photo')) {
-            // Salva a foto na pasta 'storage/app/public/complaint_photos'
-            // O link simbólico torna acessível via '/storage/complaint_photos'
             $path = $request->file('photo')->store('complaint_photos', 'public');
             $validatedData['photo_path'] = $path;
         }
@@ -84,14 +84,15 @@ class ComplaintController extends Controller
         if ($request->filled('status')) { $query->where('status', $request->status); }
         if ($request->filled('date')) { $query->whereDate('created_at', $request->date); }
 
-        $filteredComplaints = $query->latest()->get();
+        $filteredComplaints = $query->latest()->paginate(10)->withQueryString();
+
         $allUserComplaints = \App\Models\Complaint::where('user_id', auth()->id())->get();
         $totalCount = $allUserComplaints->count();
         $resolvedCount = $allUserComplaints->where('status', 'Resolvido')->count();
         $openCount = $totalCount - $resolvedCount;
         
         return view('complaints.my-complaints', [
-            'complaints' => $filteredComplaints,
+            'complaints' => $filteredComplaints, // Agora é um objeto paginado
             'totalCount' => $totalCount,
             'resolvedCount' => $resolvedCount,
             'openCount' => $openCount,
