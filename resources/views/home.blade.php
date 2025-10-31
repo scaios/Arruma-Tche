@@ -16,29 +16,30 @@
             <h1 class="brand-name">Arruma, Tchê</h1>
         </div>
 
-        <nav class="nav">
-            <a href="{{ route('home') }}" class="active">Início</a>
-            <a href="{{ route('complaints.create') }}">Fazer Reclamação</a>
-            <a href="{{ route('complaints.my') }}">Minhas Reclamações</a>
-            <a href="{{ route('about') }}">Sobre/Ajuda</a>
-
-            <div class="auth-links">
-                @auth
-                    <a href="{{ route('dashboard') }}">Painel</a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            Sair
-                        </a>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}">Entrar</a>
-                    <a href="{{ route('register') }}">Registrar</a>
-                @endauth
-            </div>
-        </nav>
+<nav class="nav">
+    <div class="main-nav">
+        <a href="{{ route('home') }}" class="{{ Request::routeIs('home') ? 'active' : '' }}">Início</a>
+        <a href="{{ route('complaints.create') }}" class="{{ Request::routeIs('complaints.create') ? 'active' : '' }}">Fazer Reclamação</a>
+        <a href="{{ route('complaints.my') }}" class="{{ Request::routeIs('complaints.my') ? 'active' : '' }}">Minhas Reclamações</a>
+        <a href="{{ route('about') }}" class="{{ Request::routeIs('about') ? 'active' : '' }}">Sobre/Ajuda</a>
+    </div>
+    <div class="auth-links">
+        @auth
+            <a href="{{ route('dashboard') }}">Painel</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    Sair
+                </a>
+            </form>
+        @else
+            <a href="{{ route('login') }}">Entrar</a>
+            <a href="{{ route('register') }}">Registrar</a>
+        @endauth
+    </div>
+</nav>
     </header>
 
 <section class="hero">
