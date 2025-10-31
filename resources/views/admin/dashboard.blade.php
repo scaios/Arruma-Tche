@@ -22,7 +22,6 @@
     <main class="container">
         <h2>Todas as Reclamações</h2>
 
-        {{-- CORRIGIDO: A verificação @if agora envolve a div inteira --}}
         @if (session('success'))
             <div class="alert-success">
                 {{ session('success') }}
@@ -36,7 +35,7 @@
                     <th>Título</th>
                     <th>Categoria</th>
                     <th>Bairro</th>
-                    <th>Data</th>
+                    <th>Usuário</th> <th>Data</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
@@ -48,10 +47,12 @@
                         <td>{{ Str::limit($complaint->title, 40) }}</td>
                         <td>{{ $complaint->category }}</td>
                         <td>{{ $complaint->neighborhood }}</td>
+                        
+                        <td>{{ $complaint->user?->name ?? 'N/A' }}</td>
+                        
                         <td>{{ $complaint->created_at->format('d/m/Y') }}</td>
                         <td><span class="status status-{{ strtolower(str_replace(' ', '-', $complaint->status)) }}">{{ $complaint->status }}</span></td>
                         <td>
-                            {{-- CORRIGIDO: Adicionado onclick para impedir que o modal abra ao clicar no formulário --}}
                             <form action="{{ route('admin.complaints.updateStatus', $complaint->id) }}" method="POST" class="action-form" onclick="event.stopPropagation();">
                                 @csrf
                                 @method('PATCH')
@@ -65,7 +66,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7">Nenhuma reclamação encontrada.</td></tr>
+                    <tr><td colspan="8">Nenhuma reclamação encontrada.</td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -78,7 +79,10 @@
                 <h2 id="modal-title"></h2>
                 <img id="modal-photo" src="" alt="Foto da Reclamação" class="hidden">
                 <div class="modal-meta">
-                    <<p><strong>Codigo:</strong> <span id="modal-protocol"></span></p>
+                    <p><strong>Codigo:</strong> <span id="modal-protocol"></span></p>
+                    
+                    <p><strong>Usuário:</strong> <span id="modal-user-email"></span></p>
+
                     <p><strong>Categoria:</strong> <span id="modal-category"></span></p>
                     <p><strong>Bairro:</strong> <span id="modal-neighborhood"></span></p>
                     <p><strong>Endereço:</strong> <span id="modal-address"></span></p>
@@ -107,6 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     document.getElementById('modal-title').textContent = data.title;
                     document.getElementById('modal-protocol').textContent = `#${data.id}`;
+                    
+                    // OBJETIVO B: Preenchendo o email do usuário no modal
+                    document.getElementById('modal-user-email').textContent = data.user ? data.user.email : 'N/A';
+                    
                     document.getElementById('modal-category').textContent = data.category;
                     document.getElementById('modal-neighborhood').textContent = data.neighborhood;
                     document.getElementById('modal-address').textContent = data.address;

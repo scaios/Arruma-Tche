@@ -108,19 +108,18 @@
 
             <input type="hidden" name="latitude" id="latitude">
             <input type="hidden" name="longitude" id="longitude">
-            <h3>Informações de contato</h3>
-            <div class="contact-info">
-                <input type="text" name="contact_name" placeholder="Seu nome completo" required>
-                <input type="email" name="contact_email" placeholder="seu.email@exemplo.com" required>
-                <input type="tel" name="contact_phone" placeholder="(00) 00000-0000" required>
-            </div>
+
+            {{-- --- INÍCIO DA ALTERAÇÃO --- --}}
+            {{-- REMOVIDO: <h3>Informações de contato</h3> --}}
+            {{-- REMOVIDO: <div class="contact-info">...</div> --}}
+            {{-- --- FIM DA ALTERAÇÃO --- --}}
 
             <button type="submit" class="btn-primary">Enviar Reclamação</button>
         </form>
     </main>
 
-    <footer class="footer"></footer>
-    <div class="footer-bottom"></div>
+    <footer class="footer"><!-- O seu footer continua aqui --></footer>
+    <div class="footer-bottom"><!-- O seu footer bottom continua aqui --></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -136,10 +135,9 @@
                 mapContainer.style.display = 'block';
                 toggleMapBtn.textContent = 'Esconder Mapa';
 
-                // Inicializa o mapa APENAS na primeira vez que é aberto
                 if (!mapInitialized) {
                     const initialCoords = [-29.5915, -51.1404];
-                    map = L.map('map').setView(initialCoords, 15); // Atribui à variável global
+                    map = L.map('map').setView(initialCoords, 15);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
@@ -157,10 +155,9 @@
                         }
                     });
 
-                    mapInitialized = true; // Marca como inicializado
+                    mapInitialized = true;
                 }
                 
-                // Força o mapa a se redimensionar corretamente
                 setTimeout(() => map.invalidateSize(), 10);
                 
             } else {
